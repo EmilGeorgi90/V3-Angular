@@ -1,0 +1,19 @@
+body,
+head {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.flexer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1c7cd5;
+    width: 100%;
+    height: 150px;
+    .fill {
+        width: 100%;
+        height: 150px;
+    }
+}

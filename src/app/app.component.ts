@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,3 +9,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'powerbank';
 }
+

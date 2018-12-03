@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+$progress-height: 2rem;
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+body {
+    font-family: sans-serif;
+    background-color: #e4e4e4;
+}

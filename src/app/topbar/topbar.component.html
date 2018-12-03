@@ -1,0 +1,15 @@
+<header class="header col-12">
+    <div class="row col-12 justify-content-between">
+        <h2 class="title">Powerbank</h2>
+        <fa-icon (click)="openNav()" [icon]="faPlusSquare" size="3x" class="squareIcon"></fa-icon>
+    </div>
+    <div class="row col-12 justify-content-center m-0 mt-2">
+        <div id="progressContainer" *ngIf="calcProcentOfGreen()" class="progress col-12 p-0 my-2">
+
+            <div id="progressBar" class="progress-bar text-dark bg-success" role="progressbar" [style.width.%]="calcProcentOfGreen()" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+                <p id="progressText" class="position-absolute m-0">{{calcProcentOfGreen() + '%'}}</p>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- The overlay -->
