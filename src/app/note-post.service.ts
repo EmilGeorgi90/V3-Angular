@@ -5,29 +5,29 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Note } from './note';
-import { MessageService } from './message.service'
+import { MessageService } from './message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class NotePostService {
+  date: Date = new Date();
   green = 0;
   red = 0;
   private noteUrl = 'api/notes';
-  notes: Note[];
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
-  
-  getNotes() : Observable<Note[]> { 
+  getNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.noteUrl)
     .pipe(
       tap(_ => this.log('fetched notes')),
       catchError(this.handleError('getNotes', []))
-      )
+      );
   }
 
   getNotesNo404<Data>(id: number): Observable<Note> {
@@ -37,7 +37,7 @@ export class NotePostService {
       map(notes => notes[0]),
       tap(n => {
         const outcome = n ? 'fetched' : 'did not find';
-        this.log(`${outcome} hero ud=${id}`)
+        this.log(`${outcome} hero ud=${id}`);
       }),
       catchError(this.handleError<Note>(`getHero id=${id}`))
     );
@@ -53,24 +53,22 @@ export class NotePostService {
   }
 
 
-  addNote (note: Note): Observable<Note>{
+  addNote (note: Note): Observable<Note> {
     return this.http.post<Note>(this.noteUrl, note, httpOptions)
-    .pipe(tap((note: Note) => this.log(`added note w/ id=${note.id}`)),
+    .pipe(tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
     catchError(this.handleError<Note>('addNote'))
     );
-  }  
+  }
 
   deleteNote (note: Note): Observable<Note> {
     const id = typeof note === 'number' ? note : note.id;
     const url = `${this.noteUrl}/${id}`;
-    
     return this.http.delete<Note>(url, httpOptions)
     .pipe(
       tap(_ => this.log(`updated hero id=${note.id}`)),
       catchError(this.handleError<any>('deleteNote'))
       );
   }
-  
   updateNote (note: Note): Observable<Note> {
     return this.http.put(this.noteUrl, note, httpOptions)
     .pipe(
@@ -79,21 +77,25 @@ export class NotePostService {
       );
   }
 
-  windowonload() : number{
-    this.getNotes().subscribe(note => this.notes = note, this.handleError(), () => this.CalcGreenSpace(this.notes));
-    return this.green / (this.red + this.green) * 100;
+  windowonload(notes: Note[]): number {
+    this.CalcGreenSpace(notes);
+    return this.green / (this.red + this.green) * 100 - (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5)));
   }
 
-  CalcGreenSpace(note: Note[]){
+  CalcGreenSpace(note: Note[]) {
     let greencolor = 0;
-    let redcolor = 0
-    note.forEach(function(value){
-      if(value.image == '../assets/img/happy.svg'){
+    let redcolor = 0;
+    note.forEach(function(value) {
+      if (value.image === '../assets/img/happy.svg') {
         greencolor++;
-      }else if(value.image == '../assets/img/vomited.svg'){
+      } else if (value.image === '../assets/img/vomited.svg') {
          redcolor++;
+      } else if (value.image === '../assets/img/sad.svg') {
+        redcolor++;
+      } else if (value.image === '../assets/img/happy-real.svg') {
+        greencolor++;
       }
-    })
+    });
     this.red = redcolor;
     this.green = greencolor;
   }

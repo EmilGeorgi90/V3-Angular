@@ -1,10 +1,10 @@
-import { NgModule }       from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryService }  from './in-memory.service';
+import { InMemoryService } from './in-memory.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, far } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { EnergiComponent } from './energi/energi.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NotePostDetailComponent,
     ErrorMessageComponent,
     TopbarComponent,
-    IndexComponent
+    IndexComponent,
+    EnergiComponent
   ],
   imports: [
     BrowserModule,

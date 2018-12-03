@@ -1,7 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import {Note} from '../note';
-import {NotePostService} from '../note-post.service'
-import { EventEmitter } from 'protractor';
+import {NotePostService} from '../note-post.service';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +15,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
   }
   getNotes(): void {
-    this.NoteService.getNotes().subscribe(notes => this.Notes = notes)
+    this.NoteService.getNotes().subscribe(notes => this.Notes = notes);
   }
 
 

@@ -1,48 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Note } from '../note';
-import { NotePostService } from '../note-post.service'
-import { Observable, of } from 'rxjs';
+import { NotePostService } from '../note-post.service';
+import { TopbarComponent } from '../topbar/topbar.component';
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit, AfterViewInit {
+  private timer: any;
   public notes: Note[];
-
+  private topbarCmponent: TopbarComponent = new TopbarComponent(this.noteService);
   constructor(private noteService: NotePostService) { }
-
-  
+  ngAfterViewInit() {
+      this.interval();
+      this.calcGreenArea();
+    }
   ngOnInit() {
     this.getNotes();
-    this.noteService.windowonload()
+  }
+  interval() {
+    this.timer = setInterval(() => this.calcGreenArea(), 60000);
   }
   public getNotes(): void {
-    this.noteService.getNotes().subscribe(notes => this.notes = notes);
+    if (this.notes === undefined) {
+    this.noteService.getNotes().subscribe(note => this.notes = note);
   }
+}
+  public calcGreenArea(): number {
+    if (this.notes === undefined) {
+      this.getNotes();
+      console.log(this.notes);
+    } else {
+      console.log(this.notes);
+      return this.topbarCmponent.calcProcentOfGreen(this.notes);
+  }
+}
   add(title: string, date: Date, context: string, image: string): void {
-    
-    let note = new Note();
-    note.title = title;
-    note.date = date;
-    note.context = context;
-    note.image = "../assets/img/" + image;
+    const note = new Note(title, date, context, '../assets/img/' + image);
     this.noteService.addNote(note as Note)
-    .subscribe(note => {this.notes.push(note)});
-    this.closeNav()
-    this.calcProcentOfGreen()
+    .subscribe(_note => {
+        this.notes.push(_note);
+    });
+    this.closeNav();
   }
-  delete(note: Note): void{
+  delete(note: Note): void {
     this.notes = this.notes.filter(n => n !== note);
     this.noteService.deleteNote(note).subscribe();
   }
   closeNav() {
-    document.getElementById("myNav").style.height = "0%";
-    document.getElementById("myNav").style.width = "0%";
-  }
-  
-  calcProcentOfGreen() : void{
-    document.getElementById("progressBar").style.width = document.getElementsByClassName("green-bar").length / (document.getElementsByClassName("green-bar").length + document.getElementsByClassName("red-bar").length) * 100 + "%"
-    document.getElementById("progressText").innerText = document.getElementsByClassName("green-bar").length / (document.getElementsByClassName("green-bar").length + document.getElementsByClassName("red-bar").length) * 100 + "%"
+    document.getElementById('myNav').style.height = '0%';
+    document.getElementById('myNav').style.width = '0%';
   }
 }
