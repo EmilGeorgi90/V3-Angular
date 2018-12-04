@@ -9,15 +9,15 @@ import { NotePostService } from '../note-post.service';
 })
 export class TopbarComponent implements OnInit {
   private _notes: Note[];
-  private _numberInProcent;
+  private _numberInProcent: Number = 0;
   faPlusSquare = faPlusSquare;
   @Output() loaded = new EventEmitter<boolean>();
 
   @Input()
-  set numberInProcent(number: number) {
+  set numberInProcent(number: Number) {
     this._numberInProcent = number;
   }
-  get numberInProcent(): number { return this._numberInProcent; }
+  get numberInProcent(): Number { return this._numberInProcent; }
   @Input()
   set notes(note: Note[]) {
     this._notes = note;
@@ -26,7 +26,7 @@ export class TopbarComponent implements OnInit {
   constructor(private noteService: NotePostService) { }
   ngOnInit() {
   }
-  calcProcentOfGreen(notes: Note[]): number {
+  calcProcentOfGreen(notes: Note[]): Number {
     if (notes === undefined) {
       console.log(notes);
       this.numberInProcent = 0;
@@ -34,12 +34,15 @@ export class TopbarComponent implements OnInit {
     } else if (this.notes !== undefined) {
       this.loaded.emit(true);
       return this.numberInProcent = this.noteService.windowonload(this.notes);
-     } else {
-     this.notes = notes;
-    console.log(this.notes);
-    return this.numberInProcent = this.noteService.windowonload(notes);
+    } else {
+      this.notes = notes;
+      console.log(this.notes);
+
+      this.numberInProcent = this.noteService.windowonload(notes);
+      console.log(this.numberInProcent);
+      return this.numberInProcent;
+    }
   }
-}
   openNav() {
     document.getElementById('myNav').style.height = '100%';
     document.getElementById('myNav').style.width = '100%';

@@ -20,14 +20,14 @@ export class NoteComponent implements OnInit, AfterViewInit {
     this.getNotes();
   }
   interval() {
-    this.timer = setInterval(() => this.calcGreenArea(), 60000);
+    this.timer = setInterval(() => this.calcGreenArea(), 500);
   }
   public getNotes(): void {
     if (this.notes === undefined) {
     this.noteService.getNotes().subscribe(note => this.notes = note);
   }
 }
-  public calcGreenArea(): number {
+  public calcGreenArea(): Number {
     if (this.notes === undefined) {
       this.getNotes();
       console.log(this.notes);
