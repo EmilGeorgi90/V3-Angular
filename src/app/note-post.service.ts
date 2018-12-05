@@ -21,6 +21,8 @@ export class NotePostService {
   green = 0;
   red = 0;
   private noteUrl = 'api/notes';
+
+
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
   getNotes(): Observable<Note[]> {

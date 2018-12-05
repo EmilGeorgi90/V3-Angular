@@ -9,7 +9,7 @@ import { NotePostService } from '../note-post.service';
 })
 export class TopbarComponent implements OnInit, AfterViewInit {
   private notes: Note[];
-  private numberInProcent: number;
+   numberInProcent: number;
   faPlusSquare = faPlusSquare;
   loaded: Promise<Boolean>;
   constructor(private noteService: NotePostService) { }
