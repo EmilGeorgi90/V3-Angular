@@ -61,7 +61,7 @@ export class NotePostService {
   addNote (note: Note): Observable<Note> {
     const temp = this.http.post<Note>(this.noteUrl, note, httpOptions)
     .pipe(tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
-    catchError(this.handleError<Note>('addNote')))
+    catchError(this.handleError<Note>('addNote')));
     temp.subscribe(tempnote => {
     this.notes.push(tempnote);
     }
