@@ -25,21 +25,15 @@
         </div>
     </div>
 </div>
-<div class="row col-12 justify-content-center m-0 mt-2">
-    <div id="progressContainer" class="progress col-12 p-0 my-2">
-        <div id="progressBar" class="progress-bar text-dark bg-success" role="progressbar" max="100" [ngStyle]="{'width': number + '%'}" name="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
-            <p id="progressText" class="position-absolute m-0">{{number + '%'}}</p>
-        </div>
-    </div>
-</div>
+
 <div class="d-flex mt-2">
     <div class="row mt-3 ml-1 mr-1">
-        <div *ngFor="let note of notes" class="card bg-light col-12 p-0">
+        <div *ngFor="let note of notes" class="card bg-light mb-2 col-12 p-0">
             <div class="d-flex">
-                <div [ngClass]="{'red-bar': note.image == '../assets/img/vomited.svg', 'green-bar': note.image == '../assets/img/happy.svg' || note.image == '../assets/img/happy-real.svg'}">
+                <div [ngClass]="{'red-bar': note.image == '../assets/img/vomited.svg', 'green-bar': note.image == '../assets/img/happy.svg' || note.image == '../assets/img/happy-real.svg', 'yellow-bar': note.image == '../assets/img/neutral.svg'}">
                 </div>
-                <div class="card-body p-0 col-11">
-                    <h5 class="card-title ">{{note.title}}<img src="{{note.image}} " class="img pr-auto " alt="billed af humør ">
+                <div class="card-body p-0 pl-2 mt-2 col-11">
+                    <h5 class="card-title justify-content-end d-flex">{{note.title}}<img src="{{note.image}} " class="img ml-auto" alt="billed af humør ">
                     </h5>
                     <p class="card-text ">{{note.context}}</p>
                 </div>

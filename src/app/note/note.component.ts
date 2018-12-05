@@ -14,27 +14,17 @@ export class NoteComponent implements OnInit, AfterViewInit {
   public notes: Note[];
   constructor(private noteService: NotePostService) { }
   ngAfterViewInit() {
-      this.interval();
     }
   ngOnInit() {
     this.getNotes();
   }
-  interval() {
-    this.timer = setInterval(() => this.calcGreenArea(), 60000);
-  }
+
   public getNotes(): void {
     if (this.notes === undefined) {
-    this.noteService.getNotes().subscribe(note => this.notes = note, error => console.log(error), () => this.calcGreenArea());
+    this.noteService.getNotes().subscribe(note => this.notes = note, error => console.log(error));
   }
 }
-  public calcGreenArea(): number {
-    if (this.notes === undefined) {
-      this.getNotes();
-    } else {
-      this.number = this.noteService.windowonload(this.notes);
-      return this.number;
-    }
-}
+
   add(title: string, date: Date, context: string, image: string): void {
     const note = new Note(title, date, context, '../assets/img/' + image);
     this.noteService.addNote(note as Note)

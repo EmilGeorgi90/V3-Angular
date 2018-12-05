@@ -1,6 +1,6 @@
 .img {
-    height: 30px;
-    width: 30px;
+    height: 45px;
+    width: 45px;
 }
 
 .overlay {
@@ -89,7 +89,15 @@
     height: 100%;
     padding: 0;
     width: 10px;
-    background-color: greenyellow;
+    background-color: green;
+}
+
+.yellow-bar {
+    min-height: 100px;
+    height: 100%;
+    padding: 0;
+    width: 10px;
+    background-color: yellow;
 }
 
 

@@ -9,29 +9,31 @@ import { NotePostService } from '../note-post.service';
 })
 export class TopbarComponent implements OnInit, AfterViewInit {
   private notes: Note[];
-  private numberInProcent: Number = 0;
+  private numberInProcent: number;
   faPlusSquare = faPlusSquare;
   loaded: Promise<Boolean>;
   constructor(private noteService: NotePostService) { }
   ngOnInit() {
   }
   ngAfterViewInit() {
+    this.interval();
   }
-  calcProcentOfGreen(notes: Note[]): Number {
-    if (notes === undefined) {
-      this.numberInProcent = 0;
-      return 0;
-    } else if (this.notes !== undefined) {
-      this.loaded = Promise.resolve(true);
-      return this.numberInProcent = this.noteService.windowonload(this.notes);
+  interval() {
+    setInterval(() => this.calcGreenArea(), 60000);
+  }
+  public calcGreenArea(): number {
+    if (this.notes === undefined) {
+      this.getNotes();
     } else {
-      this.notes = notes;
-      this.numberInProcent = this.noteService.windowonload(notes);
-      this.loaded = Promise.resolve(true);
-      console.log(this.loaded);
+      this.noteService.CalcGreenSpace().subscribe(number => this.numberInProcent = number);
       return this.numberInProcent;
     }
-  }
+}
+public getNotes(): void {
+  if (this.notes === undefined) {
+  this.noteService.getNotes().subscribe(note => this.notes = note, error => console.log(error), () => this.calcGreenArea());
+}
+}
   openNav() {
     document.getElementById('myNav').style.height = '100%';
     document.getElementById('myNav').style.width = '100%';

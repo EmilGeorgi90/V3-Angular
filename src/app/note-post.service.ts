@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/Http';
-
-import { Observable, of, observable } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Note } from './note';
@@ -16,19 +15,22 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotePostService {
-  public numberInprocent: number;
+  public numberInprocent = new BehaviorSubject(0);
   date: Date = new Date();
+  notes: Note[];
   green = 0;
   red = 0;
   private noteUrl = 'api/notes';
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
   getNotes(): Observable<Note[]> {
-    return this.http.get<Note[]>(this.noteUrl)
+    const temp = this.http.get<Note[]>(this.noteUrl)
     .pipe(
       tap(_ => this.log('fetched notes')),
       catchError(this.handleError('getNotes', []))
       );
+      temp.subscribe(notes => this.notes = notes, null);
+      return temp;
   }
 
   getNotesNo404<Data>(id: number): Observable<Note> {
@@ -55,11 +57,15 @@ export class NotePostService {
 
 
   addNote (note: Note): Observable<Note> {
-    return this.http.post<Note>(this.noteUrl, note, httpOptions)
+    const temp = this.http.post<Note>(this.noteUrl, note, httpOptions)
     .pipe(tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
-    catchError(this.handleError<Note>('addNote'))
-    );
-  }
+    catchError(this.handleError<Note>('addNote')))
+    temp.subscribe(tempnote => {
+    this.notes.push(tempnote);
+    }
+  );
+  return temp;
+}
 
   deleteNote (note: Note): Observable<Note> {
     const id = typeof note === 'number' ? note : note.id;
@@ -78,14 +84,14 @@ export class NotePostService {
       );
   }
 
-  windowonload(notes: Note[]): number {
-    this.CalcGreenSpace(notes);
-    this.numberInprocent = this.green / (this.red + this.green) * 100 -
-    (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5)));
-    return this.numberInprocent;
+  CalcGreenSpace(): Observable<number> {
+    this.mathGreenSpace(this.notes);
+    this.numberInprocent.next(this.green / (this.red + this.green) * 100 -
+    (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5))));
+    return this.numberInprocent.asObservable();
   }
 
-  CalcGreenSpace(note: Note[]) {
+  private mathGreenSpace(note: Note[]) {
     let greencolor = 0;
     let redcolor = 0;
     note.forEach(function(value) {
