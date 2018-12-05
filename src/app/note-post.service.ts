@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/Http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Note } from './note';
@@ -16,6 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotePostService {
+  public numberInprocent: number;
   date: Date = new Date();
   green = 0;
   red = 0;
@@ -79,7 +80,9 @@ export class NotePostService {
 
   windowonload(notes: Note[]): number {
     this.CalcGreenSpace(notes);
-    return this.green / (this.red + this.green) * 100 - (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5)));
+    this.numberInprocent = this.green / (this.red + this.green) * 100 -
+    (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5)));
+    return this.numberInprocent;
   }
 
   CalcGreenSpace(note: Note[]) {

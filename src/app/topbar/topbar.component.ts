@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, AfterViewInit } from '@angular/core';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Note } from '../note';
 import { NotePostService } from '../note-post.service';
@@ -7,39 +7,28 @@ import { NotePostService } from '../note-post.service';
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss']
 })
-export class TopbarComponent implements OnInit {
-  private _notes: Note[];
-  private _numberInProcent: Number = 0;
+export class TopbarComponent implements OnInit, AfterViewInit {
+  private notes: Note[];
+  private numberInProcent: Number = 0;
   faPlusSquare = faPlusSquare;
-  @Output() loaded = new EventEmitter<boolean>();
-
-  @Input()
-  set numberInProcent(number: Number) {
-    this._numberInProcent = number;
-  }
-  get numberInProcent(): Number { return this._numberInProcent; }
-  @Input()
-  set notes(note: Note[]) {
-    this._notes = note;
-  }
-  get notes(): Note[] { return this._notes; }
+  loaded: Promise<Boolean>;
   constructor(private noteService: NotePostService) { }
   ngOnInit() {
   }
+  ngAfterViewInit() {
+  }
   calcProcentOfGreen(notes: Note[]): Number {
     if (notes === undefined) {
-      console.log(notes);
       this.numberInProcent = 0;
       return 0;
     } else if (this.notes !== undefined) {
-      this.loaded.emit(true);
+      this.loaded = Promise.resolve(true);
       return this.numberInProcent = this.noteService.windowonload(this.notes);
     } else {
       this.notes = notes;
-      console.log(this.notes);
-
       this.numberInProcent = this.noteService.windowonload(notes);
-      console.log(this.numberInProcent);
+      this.loaded = Promise.resolve(true);
+      console.log(this.loaded);
       return this.numberInProcent;
     }
   }

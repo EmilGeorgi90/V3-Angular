@@ -23,6 +23,12 @@
     /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
 
+#progressBar p {
+    min-width: 100%;
+    left: 0;
+    font-size: 15px;
+}
+
 
 /* Position the content inside the overlay */
 
