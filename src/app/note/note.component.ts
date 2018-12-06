@@ -25,20 +25,10 @@ export class NoteComponent implements OnInit, AfterViewInit {
   }
 }
 
-  add(title: string, date: Date, context: string, image: string): void {
-    const note = new Note(title, date, context, '../assets/img/' + image);
-    this.noteService.addNote(note as Note)
-    .subscribe(_note => {
-        this.notes.push(_note);
-    });
-    this.closeNav();
-  }
+
   delete(note: Note): void {
     this.notes = this.notes.filter(n => n !== note);
     this.noteService.deleteNote(note).subscribe();
   }
-  closeNav() {
-    document.getElementById('myNav').style.height = '0%';
-    document.getElementById('myNav').style.width = '0%';
-  }
+
 }

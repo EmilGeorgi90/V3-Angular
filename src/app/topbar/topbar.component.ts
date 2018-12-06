@@ -11,9 +11,11 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   private notes: Note[];
   numberInProcent: number;
   faPlusSquare = faPlusSquare;
-  loaded: Promise<Boolean>;
+  overlayWidth = 0;
   constructor(private noteService: NotePostService) { }
   ngOnInit() {
+    this.numberInProcent = 100;
+    this.getNotes();
   }
   ngAfterViewInit() {
     this.interval();
@@ -22,20 +24,24 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     setInterval(() => this.calcGreenArea(), 60000);
   }
   public calcGreenArea(): number {
-    if (this.notes === undefined) {
-      this.getNotes();
-    } else {
-      this.noteService.CalcGreenSpace().subscribe(number => this.numberInProcent = number);
-      return this.numberInProcent;
-    }
+    this.noteService.CalcGreenSpace().subscribe(number => this.numberInProcent = number);
+    return this.numberInProcent;
 }
 public getNotes(): void {
-  if (this.notes === undefined) {
   this.noteService.getNotes().subscribe(note => this.notes = note, error => console.log(error), () => this.calcGreenArea());
 }
-}
   openNav() {
-    document.getElementById('myNav').style.height = '100%';
-    document.getElementById('myNav').style.width = '100%';
+    this.overlayWidth = 100;
+  }
+  closeNav(){
+    this.overlayWidth = 0;
+  }
+  add(title: string, date: Date, context: string, image: string): void {
+    const note = new Note(title, date, context, '../assets/img/' + image);
+    this.noteService.addNote(note as Note)
+    .subscribe(_note => {
+        this.notes.push(_note);
+    });
+    this.closeNav();
   }
 }
