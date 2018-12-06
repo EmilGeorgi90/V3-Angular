@@ -18,6 +18,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, far } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EnergiComponent } from './energi/energi.component';
+import { OverlayComponent } from './overlay/overlay.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EnergiComponent } from './energi/energi.component';
     ErrorMessageComponent,
     TopbarComponent,
     IndexComponent,
-    EnergiComponent
+    EnergiComponent,
+    OverlayComponent
   ],
   imports: [
     BrowserModule,

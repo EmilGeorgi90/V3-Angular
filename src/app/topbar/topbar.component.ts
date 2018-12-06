@@ -8,14 +8,13 @@ import { NotePostService } from '../note-post.service';
   styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent implements OnInit, AfterViewInit {
-  private notes: Note[];
-  numberInProcent: number;
+  @Input() notes: Note[];
+  @Input() numberInProcent: number;
   faPlusSquare = faPlusSquare;
-  overlayWidth = 0;
+  @Output() overlayWidth = new EventEmitter<number>();
   constructor(private noteService: NotePostService) { }
   ngOnInit() {
     this.numberInProcent = 100;
-    this.getNotes();
   }
   ngAfterViewInit() {
     this.interval();
@@ -27,14 +26,9 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     this.noteService.CalcGreenSpace().subscribe(number => this.numberInProcent = number);
     return this.numberInProcent;
 }
-public getNotes(): void {
-  this.noteService.getNotes().subscribe(note => this.notes = note, error => console.log(error), () => this.calcGreenArea());
-}
   openNav() {
-    this.overlayWidth = 100;
-  }
-  closeNav(){
-    this.overlayWidth = 0;
+    this.overlayWidth.emit(100);
+    console.log(this.overlayWidth);
   }
   add(title: string, date: Date, context: string, image: string): void {
     const note = new Note(title, date, context, '../assets/img/' + image);
@@ -42,6 +36,5 @@ public getNotes(): void {
     .subscribe(_note => {
         this.notes.push(_note);
     });
-    this.closeNav();
   }
 }

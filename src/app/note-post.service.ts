@@ -31,7 +31,7 @@ export class NotePostService {
       tap(_ => this.log('fetched notes')),
       catchError(this.handleError('getNotes', []))
       );
-      temp.subscribe(notes => this.notes = notes, null);
+      temp.subscribe(notes => this.notes = notes, error => console.log(error), () => this.CalcGreenSpace());
       return temp;
   }
 
@@ -60,12 +60,9 @@ export class NotePostService {
 
   addNote (note: Note): Observable<Note> {
     const temp = this.http.post<Note>(this.noteUrl, note, httpOptions)
-    .pipe(tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
+    .pipe(tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
     catchError(this.handleError<Note>('addNote')));
-    temp.subscribe(tempnote => {
-    this.notes.push(tempnote);
-    }
-  );
+    console.log(note);
   return temp;
 }
 
@@ -85,7 +82,9 @@ export class NotePostService {
       catchError(this.handleError<any>('updateNote'))
       );
   }
-
+  GetProcentOfGreenSpace(): Observable<number> {
+    return this.numberInprocent;
+  }
   CalcGreenSpace(): Observable<number> {
     this.mathGreenSpace(this.notes);
     this.numberInprocent.next(this.green / (this.red + this.green) * 100 -

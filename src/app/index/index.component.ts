@@ -9,14 +9,24 @@ import {NotePostService} from '../note-post.service';
 })
 export class IndexComponent implements OnInit {
   Notes: Note[] = [];
-
+  numberInProcent: number;
+  Overlay: number;
   constructor(private NoteService: NotePostService) { }
 
   ngOnInit() {
+    this.getNotes();
+    this.NoteService.GetProcentOfGreenSpace().subscribe(number => this.numberInProcent = number);
   }
   getNotes(): void {
     this.NoteService.getNotes().subscribe(notes => this.Notes = notes);
   }
-
-
+  overlayWidth(overlayWitdh: number) {
+    this.Overlay = overlayWitdh;
+  }
+  add(note: Note): void {
+    this.NoteService.addNote(note as Note)
+    .subscribe(_note => {
+        this.Notes.push(_note);
+    });
+  }
 }
