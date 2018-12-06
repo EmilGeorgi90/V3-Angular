@@ -2,7 +2,7 @@
     <div class="row mt-3 ml-1 mr-1">
         <div *ngFor="let note of notes" class="card bg-light mb-2 col-12 p-0">
             <div class="d-flex card-box">
-                <div [ngClass]="{'red-bar': note.image == '../assets/img/vomited.svg', 'green-bar': note.image == '../assets/img/happy.svg' || note.image == '../assets/img/happy-real.svg', 'yellow-bar': note.image == '../assets/img/neutral.svg'}">
+                <div [ngClass]="{'red-bar': note.image == '../assets/img/vomited.svg' || note.image == '../assets/img/Sad.svg', 'green-bar': note.image == '../assets/img/happy.svg' || note.image == '../assets/img/happy-real.svg', 'yellow-bar': note.image == '../assets/img/neutral.svg'}">
                 </div>
                 <div class="card-body p-0 pl-2 mt-2 col-11">
                     <h5 class="card-title justify-content-end d-flex">{{note.title}}<img src="{{note.image}} " class="img ml-auto" alt="billed af humør ">

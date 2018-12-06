@@ -22,13 +22,13 @@
             <select #image>
                 <option value="happy.svg">happy</option>
                 <option value="happy-real.svg">real happy</option>
-                <option value="sad.svg">sad</option>
+                <option value="Sad.svg">sad</option>
                 <option value="vomited.svg">vomited</option>
                 <option value="neutral.svg">neutral</option>
               </select>
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control" (click)="add(title.value, date.value, context.value, image.value); title.value='';date.value='';context.value='';image.files[0].name=''" placeholder="submit">
+            <input type="submit" class="form-control" (click)="add(title.value, date.value, context.value, image.value); title.value='';date.value='';context.value='';" placeholder="submit">
         </div>
     </div>
 </div>

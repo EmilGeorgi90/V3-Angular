@@ -8,17 +8,13 @@ import { Observable } from 'rxjs';
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-export class NoteComponent implements OnInit, AfterViewInit {
+export class NoteComponent implements OnInit {
+
   public number: any;
   @Input() notes: Note[];
+
   constructor(private noteService: NotePostService) { }
-  ngAfterViewInit() {
-    }
+
   ngOnInit() {
   }
-  delete(note: Note): void {
-    this.notes = this.notes.filter(n => n !== note);
-    this.noteService.deleteNote(note).subscribe();
-  }
-
 }

@@ -4,7 +4,6 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Note } from './note';
-import { MessageService } from './message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,6 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotePostService {
+
   public numberInprocent = new BehaviorSubject(0);
   date: Date = new Date();
   notes: Note[];
@@ -23,8 +23,8 @@ export class NotePostService {
   private noteUrl = 'api/notes';
 
 
-  constructor(private http: HttpClient,
-    private messageService: MessageService) { }
+  constructor(private http: HttpClient) { }
+
   getNotes(): Observable<Note[]> {
     const temp = this.http.get<Note[]>(this.noteUrl)
     .pipe(
@@ -48,14 +48,6 @@ export class NotePostService {
     );
   }
 
-  getNote(id: number): Observable<Note> {
-    const url = `${this.noteUrl}/${id}`;
-    return this.http.get<Note>(url)
-    .pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Note>(`getNote id=${id}`))
-      );
-  }
 
 
   addNote (note: Note): Observable<Note> {
@@ -66,25 +58,10 @@ export class NotePostService {
   return temp;
 }
 
-  deleteNote (note: Note): Observable<Note> {
-    const id = typeof note === 'number' ? note : note.id;
-    const url = `${this.noteUrl}/${id}`;
-    return this.http.delete<Note>(url, httpOptions)
-    .pipe(
-      tap(_ => this.log(`updated hero id=${note.id}`)),
-      catchError(this.handleError<any>('deleteNote'))
-      );
-  }
-  updateNote (note: Note): Observable<Note> {
-    return this.http.put(this.noteUrl, note, httpOptions)
-    .pipe(
-      tap(_ => this.log(`updated note id=${note.id}`)),
-      catchError(this.handleError<any>('updateNote'))
-      );
-  }
   GetProcentOfGreenSpace(): Observable<number> {
     return this.numberInprocent;
   }
+
   CalcGreenSpace(): Observable<number> {
     this.mathGreenSpace(this.notes);
     this.numberInprocent.next(this.green / (this.red + this.green) * 100 -
@@ -120,7 +97,8 @@ export class NotePostService {
       return of(result as T);
     };
   }
+
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    console.log(`HeroService: ${message}`);
   }
   }

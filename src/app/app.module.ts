@@ -9,26 +9,20 @@ import { InMemoryService } from './in-memory.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoteComponent } from './note/note.component';
-import { NotePostDetailComponent } from './note-post-detail/note-post-detail.component';
-import { ErrorMessageComponent } from './error-message-component/error-message.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { IndexComponent } from './index/index.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, far } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { EnergiComponent } from './energi/energi.component';
 import { OverlayComponent } from './overlay/overlay.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NoteComponent,
-    NotePostDetailComponent,
-    ErrorMessageComponent,
     TopbarComponent,
     IndexComponent,
-    EnergiComponent,
     OverlayComponent
   ],
   imports: [
