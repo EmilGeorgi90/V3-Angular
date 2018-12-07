@@ -34,6 +34,6 @@ export class IndexComponent implements OnInit {
     this.NoteService.addNote(note as Note)
     .subscribe(_note => {
         this.Notes.push(_note);
-    });
+    }, error => console.log(error), () => this.getNotes());
   }
 }
