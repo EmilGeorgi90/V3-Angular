@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/Http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -20,39 +21,27 @@ export class NotePostService {
   notes: Note[];
   green = 0;
   red = 0;
-  private noteUrl = 'api/notes';
+  private noteUrl = 'http://emil376g.aspitcloud.dk/phpApi/read.php';
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: Http) { }
 
   getNotes(): Observable<Note[]> {
-    const temp = this.http.get<Note[]>(this.noteUrl)
+    const temp = this.http.get(this.noteUrl)
     .pipe(
+      map((res: Response) => res.json()),
       tap(_ => this.log('fetched notes')),
       catchError(this.handleError('getNotes', []))
       );
-      temp.subscribe(notes => this.notes = notes, error => console.log(error), () => this.CalcGreenSpace());
+      temp.subscribe(notes => this.notes = notes['records'], error => console.log(error), () => this.CalcGreenSpace());
       return temp;
   }
 
-  getNotesNo404<Data>(id: number): Observable<Note> {
-    const url = `${this.noteUrl}/?id=${id}`;
-    return this.http.get<Note[]>(url)
-    .pipe(
-      map(notes => notes[0]),
-      tap(n => {
-        const outcome = n ? 'fetched' : 'did not find';
-        this.log(`${outcome} hero ud=${id}`);
-      }),
-      catchError(this.handleError<Note>(`getHero id=${id}`))
-    );
-  }
-
-
-
   addNote (note: Note): Observable<Note> {
-    const temp = this.http.post<Note>(this.noteUrl, note, httpOptions)
-    .pipe(tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    const temp = this.http.post('http://emil376g.aspitcloud.dk/phpApi/create.php', note, options)
+    .pipe(map((res:Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
     catchError(this.handleError<Note>('addNote')));
     console.log(note);
   return temp;

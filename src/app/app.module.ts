@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -30,6 +31,7 @@ import { OverlayComponent } from './overlay/overlay.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    HttpModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryService, { dataEncapsulation: false }
     ),

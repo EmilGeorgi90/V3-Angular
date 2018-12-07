@@ -19,10 +19,11 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.getNotes();
     this.NoteService.GetProcentOfGreenSpace().subscribe(number => this.numberInProcent = number);
+    this.numberInProcent = Math.round(this.numberInProcent);
   }
 
   getNotes(): void {
-    this.NoteService.getNotes().subscribe(notes => this.Notes = notes);
+    this.NoteService.getNotes().subscribe(notes => this.Notes = notes['records']);
   }
 
   overlayWidth(overlayWitdh: number) {
