@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Note } from '../note';
 import { NotePostService } from '../note-post.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
@@ -12,7 +14,7 @@ export class OverlayComponent implements OnInit {
   @Output() overlayClose = new EventEmitter<number>();
   @Output() Add = new EventEmitter<Note>();
 
-  constructor(private noteService: NotePostService) { }
+  constructor(private noteService: NotePostService, public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }

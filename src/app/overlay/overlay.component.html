@@ -1,7 +1,10 @@
-<div id="myNav" class="overlay" [ngStyle]="{'width': overlayWidthInput + '%'}">
+<div class="modal-header">
     <!-- Button to close the overlay navigation -->
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
     <!-- Overlay content -->
     <div class="col-10">
         <div class="form-group">
@@ -39,7 +42,10 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control" (click)="add(title.value, context.value, image); title.value='';context.value='';" placeholder="submit">
+            <input type="submit" class="form-control" (click)="add(title.value, context.value, image); activeModal.dismiss('Cross click')" placeholder="submit">
         </div>
     </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>

@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output, Input, AfterViewInit } from '@
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Note } from '../note';
 import { NotePostService } from '../note-post.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OverlayComponent } from '../overlay/overlay.component';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -13,7 +15,7 @@ export class TopbarComponent implements OnInit {
   faPlusSquare = faPlusSquare;
   @Output() overlayWidth = new EventEmitter<number>();
 
-  constructor(private noteService: NotePostService) { }
+  constructor(private noteService: NotePostService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.numberInProcent = 100;
@@ -30,7 +32,9 @@ export class TopbarComponent implements OnInit {
 }
 
   openNav() {
-    this.overlayWidth.emit(100);
+    // this.overlayWidth.emit(100);
+    const modalRef = this.modalService.open(OverlayComponent);
+    modalRef.componentInstance.overlayWidth = 100;
   }
 
 }

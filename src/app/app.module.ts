@@ -19,6 +19,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { OverlayComponent } from './overlay/overlay.component';
 
 @NgModule({
+  entryComponents: [OverlayComponent],
   declarations: [
     AppComponent,
     NoteComponent,
