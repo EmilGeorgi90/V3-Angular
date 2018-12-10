@@ -26,7 +26,7 @@ export class TopbarComponent implements OnInit {
 
   public calcGreenArea(): number {
     this.noteService.CalcGreenSpace().subscribe(number => this.numberInProcent = number);
-    return this.numberInProcent;
+    return Math.round(this.numberInProcent);
 }
 
   openNav() {

@@ -17,29 +17,29 @@
             <br>
             <div class="d-flex">
                 <label class="container">
-                            <input type="radio" checked="checked" value="happy.svg" name="radio">
+                            <input type="radio" value="happy.svg" (change)="onSelectionChange('happy.svg')" name="radio">
                             <img src="../assets/img/happy.svg" class="checkmark smily" alt="">
                           </label>
                 <label class="container">
-                            <input type="radio" value="happy-real.svg" name="radio">
+                            <input type="radio" value="happy-real.svg" (change)="onSelectionChange('happy-real.svg')" name="radio">
                             <img src="../assets/img/happy-real.svg" class="checkmark smily" alt="">
                           </label>
                 <label class="container">
-                            <input type="radio" name="radio" value="neutral.svg">
+                            <input type="radio" name="radio" (change)="onSelectionChange('neutral.svg')" value="neutral.svg">
                             <img src="../assets/img/neutral.svg" class="checkmark smily" alt="">
                           </label>
                 <label class="container">
-                            <input type="radio" name="radio" value="Sad.svg">
+                            <input type="radio" name="radio" (change)="onSelectionChange('Sad.svg')" value="Sad.svg">
                             <img src="../assets/img/Sad.svg" class="checkmark smily" alt="">
                           </label>
                 <label class="container">
-                            <input type="radio" name="radio" value="vomited.svg">
+                            <input type="radio" name="radio" (change)="onSelectionChange('vomited.svg')" value="vomited.svg">
                             <img src="../assets/img/vomited.svg" class="checkmark smily" alt="">
                           </label>
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control" (click)="add(title.value, Date.now(), context.value, image.value); title.value='';context.value='';" placeholder="submit">
+            <input type="submit" class="form-control" (click)="add(title.value, context.value, image); title.value='';context.value='';" placeholder="submit">
         </div>
     </div>
 </div>
