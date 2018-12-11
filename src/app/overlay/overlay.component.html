@@ -42,10 +42,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control" (click)="add(title.value, context.value, image); activeModal.dismiss('Cross click')" placeholder="submit">
+            <input type="submit" value="submit" class="form-control" (click)="add(title.value, context.value, image)" placeholder="submit">
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>

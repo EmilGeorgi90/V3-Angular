@@ -18,7 +18,8 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.getNotes();
-    this.NoteService.GetProcentOfGreenSpace().subscribe(number => this.numberInProcent = number);
+    this.numberInProcent = 100;
+    this.NoteService.GetProcentOfGreenSpace().subscribe(number => this.numberInProcent = number > 0 ? number : 0);
     this.numberInProcent = Math.round(this.numberInProcent);
   }
 
@@ -31,6 +32,7 @@ export class IndexComponent implements OnInit {
   }
 
   add(note: Note): void {
+    console.log(note);
     this.NoteService.addNote(note as Note)
     .subscribe(_note => {
         this.Notes.push(_note);

@@ -41,7 +41,7 @@ export class NotePostService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
     const temp = this.http.post('http://emil376g.aspitcloud.dk/phpApi/create.php', note, options)
-    .pipe(map((res:Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
+    .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
     catchError(this.handleError<Note>('addNote')));
     console.log(note);
   return temp;
@@ -53,8 +53,10 @@ export class NotePostService {
 
   CalcGreenSpace(): Observable<number> {
     this.mathGreenSpace(this.notes);
-    this.numberInprocent.next(this.green / (this.red + this.green) * 100 -
+    const math = Math.floor(this.green / (this.red + this.green) * 100 -
     (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5))));
+    const number = math > 0 ? math : 0;
+    this.numberInprocent.next(number);
     return this.numberInprocent.asObservable();
   }
 

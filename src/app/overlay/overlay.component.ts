@@ -21,15 +21,9 @@ export class OverlayComponent implements OnInit {
 
   add(title: string, context: string, image: string): void {
     const note = new Note(title, new Date(), context, '../assets/img/' + image);
-    this.Add.emit(note);
-    this.closeNav();
-  }
-
-  closeNav() {
-    this.overlayClose.emit(0);
+    this.activeModal.close(note);
   }
   onSelectionChange(Image) {
     this.image = Image;
-    console.log(this.image);
   }
 }
