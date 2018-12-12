@@ -17,4 +17,6 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 }

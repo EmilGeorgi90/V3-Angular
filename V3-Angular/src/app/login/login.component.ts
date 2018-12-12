@@ -58,4 +58,7 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+    test() {
+        console.log('John');
+      }
 }
