@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Notes;
 class NotesController extends Controller
 {
-    public function index()
+    public function index($userId)
     {
-        return Notes::all();
+        return Notes::Where('user_id', '=', $userId)->get();
     }
 
     public function show(Notes $note)
@@ -18,19 +18,19 @@ class NotesController extends Controller
 
     public function store(Request $request)
     {
-        $Note = Note::create($request->all());
+        $Note = Notes::create($request->all());
 
         return response()->json($note, 201);
     }
 
-    public function update(Request $request, Note $note)
+    public function update(Request $request, Notes $note)
     {
         $note->update($request->all());
 
         return response()->json($note, 200);
     }
 
-    public function delete(Note $note)
+    public function delete(Notes $note)
     {
         $note->delete();
 

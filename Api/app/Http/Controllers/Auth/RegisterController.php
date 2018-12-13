@@ -80,6 +80,7 @@ class RegisterController extends Controller
         // observers, such as sending a confirmation email or any 
         // code that needs to be run as soon as the user is created.
         $user = $this->create($request->all());
+        // event(new Registered($user = $this->create($request->all())));
 
         // After the user is created, he's logged in.
         $this->guard()->login($user);

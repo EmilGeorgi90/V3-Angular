@@ -21,8 +21,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { OverlayComponent } from './overlay/overlay.component';
 
 import { AlertComponent } from './_components';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
+import { ErrorInterceptor } from './_helpers';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 @NgModule({
@@ -34,7 +33,6 @@ import { RegisterComponent } from './register';
     IndexComponent,
     OverlayComponent,
     AlertComponent,
-    HomeComponent,
     LoginComponent,
     RegisterComponent
   ],
@@ -52,7 +50,6 @@ import { RegisterComponent } from './register';
     NgbModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend

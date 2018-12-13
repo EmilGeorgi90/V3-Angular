@@ -21,8 +21,8 @@ Route::middleware('auth:api')
 Auth::guard('api')->user(); // instance of the logged user
 Auth::guard('api')->check(); // if a user is authenticated
 Auth::guard('api')->id(); // the id of the authenticated user
-    Route::get('notes', 'NotesController@index');
-    Route::get('notes/{Notes}', 'NotesController@show');
+    Route::get('notes/{UserID}', 'NotesController@index');
+    Route::get('notes/{UserID}/{Notes}', 'NotesController@show');
     Route::post('notes', 'NotesController@store');
     Route::put('notes/{Notes}', 'NotesController@update');
     Route::delete('notes/{Notes}', 'NotesController@delete');

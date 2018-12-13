@@ -11,8 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-
+        
         $faker = \Faker\Factory::create();
 
         // Let's make sure everyone has the same password and 

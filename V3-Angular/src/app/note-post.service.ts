@@ -21,7 +21,8 @@ export class NotePostService {
   notes: Note[];
   green = 0;
   red = 0;
-  private noteUrl = 'http://emil376g.aspitcloud.dk/phpApi/read.php';
+  currentUser = JSON.parse(localStorage.getItem('currentUser')).id;
+  private noteUrl = `http://emil376g.aspitcloud.dk/api/public/api/notes/` + this.currentUser;
 
 
   constructor(private http: Http) { }
