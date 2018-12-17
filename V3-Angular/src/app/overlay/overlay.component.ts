@@ -2,7 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Note } from '../note';
 import { NotePostService } from '../note-post.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { User } from '../_models';
+import { AuthenticationService } from '../_services';
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
@@ -14,13 +15,14 @@ export class OverlayComponent implements OnInit {
   @Output() overlayClose = new EventEmitter<number>();
   @Output() Add = new EventEmitter<Note>();
 
-  constructor(private noteService: NotePostService, public activeModal: NgbActiveModal) { }
+  constructor(private noteService: NotePostService, public activeModal: NgbActiveModal, private AuthorService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   add(title: string, context: string, image: string): void {
-    const note = new Note(title, new Date(), context, '../assets/img/' + image);
+    const note = new Note(title, context, '../assets/img/' + image);
+    note.user = this.AuthorService.currentUserValue;
     this.activeModal.close(note);
   }
   onSelectionChange(Image) {

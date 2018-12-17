@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
 import { Note } from '../note';
+import { MomentModule } from 'ngx-moment';
 import { NotePostService } from '../note-post.service';
 import { TopbarComponent } from '../topbar/topbar.component';
 import { Observable } from 'rxjs';
@@ -17,6 +18,4 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
 }

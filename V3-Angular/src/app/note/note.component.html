@@ -1,15 +1,16 @@
 <div class="d-flex mt-2">
-    <div class="row mt-3 ml-1 mr-1">
-        <div *ngFor="let note of notes" class="card bg-light mb-2 col-12 p-0">
-            <div class="d-flex card-box">
-                <div [ngClass]="{'red-bar': note.image == '../assets/img/vomited.svg' || note.image == '../assets/img/Sad.svg', 'green-bar': note.image == '../assets/img/happy.svg' || note.image == '../assets/img/happy-real.svg', 'yellow-bar': note.image == '../assets/img/neutral.svg'}">
+    <div class="row mt-3 ml-1 mr-1 col-12 px-0 mx-0 justify-content-between">
+        <div *ngFor=" let note of notes " class="card bg-light mb-2 col-sm-12 col-md-6 p-0">
+            <div class="d-flex card-box ">
+                <div [ngClass]="{ 'red-bar': note.image=='../assets/img/vomited.svg' || note.image=='../assets/img/Sad.svg' , 'green-bar': note.image=='../assets/img/happy.svg' || note.image=='../assets/img/happy-real.svg' , 'yellow-bar': note.image=='../assets/img/neutral.svg'
+        } ">
                 </div>
-                <div class="card-body p-0 pl-2 mt-2 col-11">
-                    <h5 class="card-title justify-content-end d-flex mb-0">{{note.title}}<img src="{{note.image}} " class="img ml-auto" alt="billed af humør ">
+                <div class="card-body p-0 pl-2 mt-2 col-11 ">
+                    <h5 class="card-title justify-content-end d-flex mb-0 ">{{note.title}}<img src="{{note.image}} " class="img ml-auto " alt="billed af humør ">
                     </h5>
-                    <p class="card-subtitle text-muted">{{note.date}}</p>
+                    <p class="card-subtitle text-muted " title="{{note.date | amDateFormat: 'LLL'}} ">{{note.date | amTimeAgo}}</p>
                     <p class="card-text ">{{note.context}}</p>
-                    <button class="btn-primary col-md-2 col-sm-10">edit</button>
+                    <button class="btn-primary col-md-2 col-sm-10 mb-2 ">edit</button>
                 </div>
             </div>
         </div>

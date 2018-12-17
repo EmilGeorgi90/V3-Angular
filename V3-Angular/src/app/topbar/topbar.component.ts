@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, Input, AfterViewInit } from '@angular/core';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Note } from '../note';
+import { User } from '../_models';
 import { NotePostService } from '../note-post.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OverlayComponent } from '../overlay/overlay.component';

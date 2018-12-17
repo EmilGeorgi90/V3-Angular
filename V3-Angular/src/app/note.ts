@@ -1,9 +1,8 @@
 import { User } from '../app/_models/user';
 
 export class Note {
-    constructor(title: string, date: Date, context: string, image: string) {
+    constructor(title: string, context: string, image: string) {
         this.title = title;
-        this.date = date;
         this.context = context;
         this.image = image;
     }
@@ -12,5 +11,5 @@ export class Note {
     date: Date;
     context: string;
     image: string;
-    user: User;
+    user: any;
 }

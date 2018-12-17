@@ -13,6 +13,9 @@ head {
         margin-top: 12px;
         font-weight: 500;
         padding-left: 15px;
+        @media screen and (max-width: 320px) {
+            padding: 0;
+        }
     }
     .squareIcon {
         padding-top: 15px;

@@ -13,12 +13,12 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
 
     constructor(private http: Http) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUserSubject = new BehaviorSubject<User>(null);
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User {
-        return this.currentUserSubject.value;
+        return this.currentUserSubject.value as User;
     }
 
     login(email: string, password: string): Observable<User> {
@@ -28,13 +28,12 @@ export class AuthenticationService {
         // tslint:disable-next-line:max-line-length
         const temp = this.http.post('http://emil376g.aspitcloud.dk/api/public/api/login', JSON.stringify({email: email, password: password}), options)
         // tslint:disable-next-line:max-line-length
-        .pipe(map((res: Response) => res.json()), tap((_user: User) => {localStorage.setItem('currentUser', JSON.stringify(_user)); this.currentUserSubject.next(_user); }));
+        .pipe(map((res: Response) => res.json()), tap((_user: User) => {this.currentUserSubject.next(_user); }));
     return temp;
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
     private handleError<T> (operation = 'operation', result?: T) {

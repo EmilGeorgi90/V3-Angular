@@ -24,6 +24,8 @@ import { AlertComponent } from './_components';
 import { ErrorInterceptor } from './_helpers';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { MomentModule } from 'ngx-moment';
+
 @NgModule({
   entryComponents: [OverlayComponent],
   declarations: [
@@ -43,6 +45,7 @@ import { RegisterComponent } from './register';
     HttpClientModule,
     FormsModule,
     HttpModule,
+    MomentModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryService, { dataEncapsulation: false }
     ),

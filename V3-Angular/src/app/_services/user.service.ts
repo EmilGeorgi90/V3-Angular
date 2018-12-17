@@ -24,7 +24,7 @@ export class UserService {
         console.log(JSON.stringify(user));
         const temp = this.http.post(`http://emil376g.aspitcloud.dk/api/public/api/register`, JSON.stringify(user), options)
         // tslint:disable-next-line:max-line-length
-        .pipe(map((res: Response) => res.json()), tap((_user: User) => {localStorage.setItem('currentUser', JSON.stringify(_user)); return _user; }));
+        .pipe(map((res: Response) => res.json()), tap((_user: User) => _user));
         return temp;
     }
 

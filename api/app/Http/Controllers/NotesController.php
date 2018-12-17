@@ -8,7 +8,7 @@ class NotesController extends Controller
 {
     public function index($userId)
     {
-        return Notes::Where('user_id', '=', $userId)->get();
+        return Notes::Where('user_id', $userId)->get();
     }
 
     public function show(Notes $note)
@@ -18,9 +18,7 @@ class NotesController extends Controller
 
     public function store(Request $request)
     {
-        $Note = Notes::create($request->all());
-
-        return response()->json($note, 201);
+        return response()->json(Notes::create($request->all()), 201);
     }
 
     public function update(Request $request, Notes $note)
