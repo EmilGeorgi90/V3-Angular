@@ -22,7 +22,7 @@ export class NotePostService {
   notes: Note[];
   green = 0;
   red = 0;
-  private noteUrl = `http://emil376g.aspitcloud.dk/api/public/api/notes/`;
+  private noteUrl = `https://emil376g.aspitcloud.dk/api/public/api/notes/`;
 
 
   constructor(private http: Http, private autherService: AuthenticationService) {
@@ -43,12 +43,25 @@ export class NotePostService {
   addNote (note: Note): Observable<Note> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
+    note.image = '../assets/img/' + note.image;
     console.log(note);
     // tslint:disable-next-line:max-line-length
-    const temp = this.http.post('http://emil376g.aspitcloud.dk/api/public/api/notes', JSON.stringify({title: note.title, user_id: note.user.data.id, context: note.context, image: note.image}), options)
+    const temp = this.http.post('https://emil376g.aspitcloud.dk/api/public/api/notes', JSON.stringify({title: note.title, user_id: note.user.data.id, context: note.context, image: note.image}), options)
     .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
     catchError(this.handleError<Note>('addNote')));
   return temp;
+}
+editNote (noteToEdit: Note, note: Note): Observable<Note> {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  note.image = '../assets/img/' + note.image;
+  console.log(note.image)
+  // tslint:disable-next-line:max-line-length
+  const temp = this.http.put('https://emil376g.aspitcloud.dk/api/public/api/notes/' + noteToEdit.id, JSON.stringify({title: note.title, context: note.context, image: note.image}), options)
+  .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
+  catchError(this.handleError<Note>('addNote')));
+  console.log(temp);
+return temp;
 }
 
   GetProcentOfGreenSpace(): Observable<number> {
@@ -56,9 +69,12 @@ export class NotePostService {
   }
 
   CalcGreenSpace(): Observable<number> {
+    if (this.date.setHours(24) <= Date.now()) {
+        this.date = new Date();
+    }
     this.mathGreenSpace(this.notes);
     const math = Math.floor((100 - (this.red - this.green)) -
-    (Math.round(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5))));
+    (Math.floor(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5))));
     let number = math > 0 ? math : 0;
     number = number > 100 ? 100 : number;
     this.numberInprocent.next(number);
@@ -71,13 +87,21 @@ export class NotePostService {
     if (note !== undefined) {
     note.forEach(function(value) {
       if (value.image === '../assets/img/happy.svg') {
-        greencolor += 20;
+        if (greencolor < 100) {
+          greencolor += 20;
+        }
       } else if (value.image === '../assets/img/vomited.svg') {
+        if (redcolor < 100) {
          redcolor += 20;
-      } else if (value.image === '../assets/img/sad.svg') {
-        redcolor += 10;
+        }
+      } else if (value.image === '../assets/img/Sad.svg') {
+        if (redcolor < 100) {
+          redcolor += 10;
+        }
       } else if (value.image === '../assets/img/happy-real.svg') {
-        greencolor += 10;
+        if (greencolor < 100) {
+          greencolor += 10;
+        }
       }
     });
   }

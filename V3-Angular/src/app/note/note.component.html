@@ -10,7 +10,7 @@
                     </h5>
                     <p class="card-subtitle text-muted " title="{{note.date | amDateFormat: 'LLL'}} ">{{note.date | amTimeAgo}}</p>
                     <p class="card-text ">{{note.context}}</p>
-                    <button class="btn-primary col-md-2 col-sm-10 mb-2 ">edit</button>
+                    <button class="btn-primary col-md-2 col-sm-10 mb-2" (click)="openEdit(note)">edit</button>
                 </div>
             </div>
         </div>

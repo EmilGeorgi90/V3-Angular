@@ -38,4 +38,12 @@ export class IndexComponent implements OnInit {
         this.Notes.push(_note);
     }, error => console.log(error), () => this.getNotes());
   }
+  edit(notes: Note[]): void {
+    console.log(notes);
+    this.NoteService.editNote(notes[0], notes[1])
+    .subscribe(_note => {
+        this.Notes.push(_note);
+        console.log(_note);
+    }, error => console.log(error), () => this.getNotes());
+  }
 }

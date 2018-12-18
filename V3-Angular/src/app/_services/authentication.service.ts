@@ -26,7 +26,7 @@ export class AuthenticationService {
         const headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'});
         const options = new RequestOptions({ headers: headers });
         // tslint:disable-next-line:max-line-length
-        const temp = this.http.post('http://emil376g.aspitcloud.dk/api/public/api/login', JSON.stringify({email: email, password: password}), options)
+        const temp = this.http.post('https://emil376g.aspitcloud.dk/api/public/api/login', JSON.stringify({email: email, password: password}), options)
         // tslint:disable-next-line:max-line-length
         .pipe(map((res: Response) => res.json()), tap((_user: User) => {this.currentUserSubject.next(_user); }));
     return temp;

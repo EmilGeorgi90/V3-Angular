@@ -22,7 +22,7 @@ export class UserService {
         const headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'});
         const options = new RequestOptions({ headers: headers });
         console.log(JSON.stringify(user));
-        const temp = this.http.post(`http://emil376g.aspitcloud.dk/api/public/api/register`, JSON.stringify(user), options)
+        const temp = this.http.post(`https://emil376g.aspitcloud.dk/api/public/api/register`, JSON.stringify(user), options)
         // tslint:disable-next-line:max-line-length
         .pipe(map((res: Response) => res.json()), tap((_user: User) => _user));
         return temp;
