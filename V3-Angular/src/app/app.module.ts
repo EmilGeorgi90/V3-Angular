@@ -25,9 +25,11 @@ import { ErrorInterceptor } from './_helpers';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { MomentModule } from 'ngx-moment';
+import { ConfirmationDialogComponent } from './shared/delete-confirm-dialog/confirmation-dialog.component';
+import { ConfirmationDialogService } from './shared/delete-confirm-dialog/confirmation-dialog.service';
 
 @NgModule({
-  entryComponents: [OverlayComponent],
+  entryComponents: [OverlayComponent, ConfirmationDialogComponent],
   declarations: [
     AppComponent,
     NoteComponent,
@@ -36,7 +38,8 @@ import { MomentModule } from 'ngx-moment';
     OverlayComponent,
     AlertComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -53,6 +56,7 @@ import { MomentModule } from 'ngx-moment';
     NgbModule
   ],
   providers: [
+    ConfirmationDialogService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend

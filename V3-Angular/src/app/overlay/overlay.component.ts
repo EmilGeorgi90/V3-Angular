@@ -58,4 +58,7 @@ export class OverlayComponent implements OnInit {
     note.user = this.AuthorService.currentUserValue;
     this.activeModal.close(note);
   }
+  deleteNote(note: Note) {
+    this.activeModal.close('delete');
+  }
 }

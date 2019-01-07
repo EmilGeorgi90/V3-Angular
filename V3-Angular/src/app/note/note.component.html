@@ -11,7 +11,6 @@
                     <p class="card-subtitle text-muted " title="{{note.date | amDateFormat: 'LLL'}} ">{{note.date | amTimeAgo}}</p>
                     <p class="card-text ">{{note.context}}</p>
                     <button class="btn-primary col-md-2 col-sm-10 mb-2" (click)="openEdit(note)">edit</button>
-                    <button class="btn-warning col-md-3 col-sm-10 mb-2" (click)="deleteNote(note)">delete</button>
                 </div>
             </div>
         </div>
