@@ -18,7 +18,7 @@ export class NotePostService {
 
   public numberInprocent = new BehaviorSubject(0);
   CurrUser: any;
-  date: Date = new Date();
+  date: Date = new Date(new Date().setHours(8));
   notes: Note[];
   green = 0;
   red = 0;
@@ -46,21 +46,27 @@ export class NotePostService {
     note.image = '../assets/img/' + note.image;
     console.log(note);
     // tslint:disable-next-line:max-line-length
-    const temp = this.http.post('https://emil376g.aspitcloud.dk/api/public/api/notes', JSON.stringify({title: note.title, user_id: note.user.data.id, context: note.context, image: note.image}), options)
+    return this.http.post('https://emil376g.aspitcloud.dk/api/public/api/notes', JSON.stringify({title: note.title, user_id: note.user.data.id, context: note.context, image: note.image}), options)
     .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${note.id}`)),
     catchError(this.handleError<Note>('addNote')));
-  return temp;
 }
 editNote (noteToEdit: Note, note: Note): Observable<Note> {
   const headers = new Headers({ 'Content-Type': 'application/json' });
   const options = new RequestOptions({ headers: headers });
   note.image = '../assets/img/' + note.image;
-  console.log(note.image)
   // tslint:disable-next-line:max-line-length
   const temp = this.http.put('https://emil376g.aspitcloud.dk/api/public/api/notes/' + noteToEdit.id, JSON.stringify({title: note.title, context: note.context, image: note.image}), options)
   .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`added note w/ id=${_note.id}`)),
   catchError(this.handleError<Note>('addNote')));
-  console.log(temp);
+return temp;
+}
+deleteNote (noteToDelete: Note): Observable<Note> {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  // tslint:disable-next-line:max-line-length
+  const temp = this.http.delete('https://emil376g.aspitcloud.dk/api/public/api/notes/' + noteToDelete.id, options)
+  .pipe(map((res: Response) => res.json()), tap((_note: Note) => this.log(`deleted note w/ id=${noteToDelete.id}`)),
+  catchError(this.handleError<Note>('addNote')));
 return temp;
 }
 
@@ -69,12 +75,8 @@ return temp;
   }
 
   CalcGreenSpace(): Observable<number> {
-    if (this.date.setHours(24) <= Date.now()) {
-        this.date = new Date();
-    }
     this.mathGreenSpace(this.notes);
-    const math = Math.floor((100 - (this.red - this.green)) -
-    (Math.floor(((Date.now() - this.date.setHours(8)) / 1000 / 60 / 5))));
+    const math = Math.floor((Math.floor(((Date.now() - this.date.getTime()) / 1000 / 60 / 5))) - (this.red - this.green));
     let number = math > 0 ? math : 0;
     number = number > 100 ? 100 : number;
     this.numberInprocent.next(number);
@@ -85,30 +87,27 @@ return temp;
     let greencolor = 0;
     let redcolor = 0;
     if (note !== undefined) {
-    note.forEach(function(value) {
-      if (value.image === '../assets/img/happy.svg') {
-        if (greencolor < 100) {
+    note.forEach((value) => {
+      if (value.image === '../assets/img/happy.svg' && this.calcDate(value.date)) {
           greencolor += 20;
-        }
-      } else if (value.image === '../assets/img/vomited.svg') {
-        if (redcolor < 100) {
+      } else if (value.image === '../assets/img/vomited.svg' && this.calcDate(value.date)) {
          redcolor += 20;
-        }
-      } else if (value.image === '../assets/img/Sad.svg') {
-        if (redcolor < 100) {
+      } else if (value.image === '../assets/img/Sad.svg' && this.calcDate(value.date)) {
           redcolor += 10;
-        }
-      } else if (value.image === '../assets/img/happy-real.svg') {
-        if (greencolor < 100) {
+      } else if (value.image === '../assets/img/happy-real.svg' && this.calcDate(value.date)) {
           greencolor += 10;
-        }
       }
     });
   }
     this.red = redcolor;
     this.green = greencolor;
   }
-
+  private calcDate(date: Date): boolean {
+    const datelookup = new Date(date);
+    const currDate = new Date();
+    // tslint:disable-next-line:max-line-length
+    return datelookup.getDate() === currDate.getDate();
+  }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -121,6 +120,6 @@ return temp;
   }
 
   private log(message: string) {
-    console.log(`HeroService: ${message}`);
-  }
+    console.log(`${message}`);
+    }
   }

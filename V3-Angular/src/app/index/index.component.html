@@ -1,5 +1,4 @@
 <div class="flexer">
-    <app-topbar [notes]="Notes" (Add)="add($event)" (overlayWidth)="overlayWidth($event)" [numberInProcent]="numberInProcent" class="fill"></app-topbar>
+    <app-topbar (Add)="add($event)" [numberInProcent]="numberInProcent" class="fill"></app-topbar>
 </div>
-<!-- <app-overlay [overlayWidthInput]="Overlay" (Add)="add($event)" (overlayClose)="overlayWidth($event)"></app-overlay> -->
-<app-note [notes]="Notes" (edit)="edit($event)"></app-note>
+<app-note [notes]="Notes" (edit)="edit($event)" (delete)='delete($event)'></app-note>

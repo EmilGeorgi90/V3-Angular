@@ -8,16 +8,14 @@ import { OverlayComponent } from '../overlay/overlay.component';
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent  {
 
   public number: any;
   @Input() notes: Note[];
   @Output() edit = new EventEmitter<Note[]>();
-
+  @Output() delete = new EventEmitter<Note>();
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit() {
-  }
   openEdit(currNote: Note) {
     // this.overlayWidth.emit(100);
     const modalRef = this.modalService.open(OverlayComponent);
@@ -26,5 +24,9 @@ export class NoteComponent implements OnInit {
     const _notes: Note[] = [];
     _notes.push(currNote);
     modalRef.result.then(note => {_notes.push(note); this.edit.emit(_notes); }, error => console.log(error));
+  }
+  deleteNote(note: Note) {
+    console.log(note);
+    this.delete.emit(note);
   }
 }

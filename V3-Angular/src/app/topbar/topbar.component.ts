@@ -12,10 +12,8 @@ import { OverlayComponent } from '../overlay/overlay.component';
 })
 export class TopbarComponent implements OnInit {
   note: Note;
-  @Input() notes: Note[];
   @Input() numberInProcent: number;
   faPlusSquare = faPlusSquare;
-  @Output() overlayWidth = new EventEmitter<number>();
   @Output() Add = new EventEmitter<Note>();
 
   constructor(private noteService: NotePostService, private modalService: NgbModal) { }
@@ -34,7 +32,6 @@ export class TopbarComponent implements OnInit {
 }
 
   openNav() {
-    // this.overlayWidth.emit(100);
     const modalRef = this.modalService.open(OverlayComponent);
     modalRef.componentInstance.overlayWidth = 100;
     modalRef.result.then(note => this.Add.emit(note), error => console.log(error));

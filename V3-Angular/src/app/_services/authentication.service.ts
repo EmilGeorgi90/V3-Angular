@@ -23,12 +23,13 @@ export class AuthenticationService {
 
     login(email: string, password: string): Observable<User> {
         // tslint:disable-next-line:max-line-length
-        const headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'});
+        const headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json'});
         const options = new RequestOptions({ headers: headers });
+        console.log(JSON.stringify({email: email, password: password}));
         // tslint:disable-next-line:max-line-length
         const temp = this.http.post('https://emil376g.aspitcloud.dk/api/public/api/login', JSON.stringify({email: email, password: password}), options)
         // tslint:disable-next-line:max-line-length
-        .pipe(map((res: Response) => res.json()), tap((_user: User) => {this.currentUserSubject.next(_user); }));
+        .pipe(map((res: Response) => res.json()), tap((_user: User) => {this.currentUserSubject.next(_user);}));
     return temp;
     }
 

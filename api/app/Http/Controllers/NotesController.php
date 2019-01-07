@@ -11,8 +11,9 @@ class NotesController extends Controller
         return Notes::Where('user_id', $userId)->get();
     }
 
-    public function show(Notes $note)
+    public function show($userId, Notes $note)
     {
+        $notes = Notes::Where('user_id', $userId)->get();
         return $note;
     }
 
@@ -32,6 +33,6 @@ class NotesController extends Controller
     {
         $note->delete();
 
-        return response()->json(null, 204);
+        return response()->json($note, 204);
     }
 }

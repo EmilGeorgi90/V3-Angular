@@ -46,4 +46,9 @@ export class IndexComponent implements OnInit {
         console.log(_note);
     }, error => console.log(error), () => this.getNotes());
   }
+  delete(note: Note) {
+    this.NoteService.deleteNote(note).subscribe(_note => {
+      this.Notes.push(_note);
+    }, error => console.log(error), () =>  this.getNotes());
+  }
 }

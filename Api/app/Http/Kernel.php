@@ -15,8 +15,10 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \App\Http\Middleware\CheckForMaintenanceMode::class,
+        \Barryvdh\Cors\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
+        \App\Http\Middleware\Cors::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
     ];
@@ -36,10 +38,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
+            \Barryvdh\Cors\HandleCors::class,
         ],
     ];
 
@@ -56,6 +58,7 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'cors' => \Barryvdh\Cors\HandleCors::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
