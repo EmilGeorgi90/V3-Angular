@@ -64,7 +64,7 @@
 /* The container */
 
 .container {
-    display: block;
+    display: flex;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
@@ -89,11 +89,11 @@
 /* Create a custom radio button */
 
 .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 40px;
-    width: 40px;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     height: 40px;
+    //     width: 40px;
     background-color: #eee;
     border-radius: 50%;
 }

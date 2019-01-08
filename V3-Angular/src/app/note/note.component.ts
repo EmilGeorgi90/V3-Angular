@@ -31,7 +31,7 @@ export class NoteComponent  {
   }
   public openConfirmationDialog(note: Note) {
     this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
-    .then((confirmed) => this.deleteNote(note))
+    .then((confirmed) => {if (confirmed === true) { this.deleteNote(note); } } )
     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 }

@@ -76,7 +76,7 @@ return temp;
 
   CalcGreenSpace(): Observable<number> {
     this.mathGreenSpace(this.notes);
-    const math = Math.floor((Math.floor(((Date.now() - this.date.getTime()) / 1000 / 60 / 5))) - (this.red - this.green));
+    const math = Math.floor(100 + (this.green - this.red) - (Math.floor(((Date.now() - this.date.getTime()) / 1000 / 60 / 5))));
     let number = math > 0 ? math : 0;
     number = number > 100 ? 100 : number;
     this.numberInprocent.next(number);

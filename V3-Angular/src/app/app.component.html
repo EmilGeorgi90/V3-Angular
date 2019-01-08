@@ -1,10 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid">
-    <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+                </div>
+            </nav>
         </div>
-    </nav>
-    <app-alert></app-alert>
-    <router-outlet></router-outlet>
+        <app-alert></app-alert>
+        <div class="col-12">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
